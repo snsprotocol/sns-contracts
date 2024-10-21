@@ -9,7 +9,7 @@ import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Permit.sol";
 
 contract SNSToken is ERC20, Ownable, ERC20Permit {
     // Event to be emitted when tokens are minted
-    event Mint(address indexed minter, address indexed to, uint256 amount);
+    event Mint(address indexed minter, address indexed recipient, uint256 amount);
     // Event to be emitted when tokens are burned
     event Burn(address indexed burner, uint256 amount);
 
@@ -17,12 +17,6 @@ contract SNSToken is ERC20, Ownable, ERC20Permit {
     constructor(
         address initialOwner
     ) ERC20("Sonic Name Service", "SNS") Ownable(initialOwner) ERC20Permit("Sonic Name Service") {}
-
-    // Function to allow token holders to burn their own tokens
-    function burn(uint256 amount) external {
-        _burn(msg.sender, amount);
-        emit Burn(msg.sender, amount);
-    }
 
     /*
     Function to mint new tokens, restricted to the owner only.
@@ -34,5 +28,11 @@ contract SNSToken is ERC20, Ownable, ERC20Permit {
         require(to != address(0), "Mint to zero address!");
         _mint(to, amount);
         emit Mint(msg.sender, to, amount);
+    }
+
+    // Function to allow token holders to burn their own tokens
+    function burn(uint256 amount) external {
+        _burn(msg.sender, amount);
+        emit Burn(msg.sender, amount);
     }
 }
