@@ -264,8 +264,8 @@ contract SNSBurnToMint is Ownable, ReentrancyGuard {
         _masterFarmerContract.wigoBurn(_totalWigoAmount);
         _token.mint(address(this), _usersMintable);
         _token.mint(address(_devsWallet), (_othersMintable * 50) / 100);
-        _token.mint(address(_daoWallet), (_othersMintable * 30) / 100);
-        _token.mint(address(_ecosystemWallet), (_othersMintable * 20) / 100);
+        _token.mint(address(_daoWallet), (_othersMintable * 20) / 100);
+        _token.mint(address(_ecosystemWallet), (_othersMintable * 30) / 100);
 
         _finalized = true;
 
