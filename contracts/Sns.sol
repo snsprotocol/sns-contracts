@@ -14,7 +14,9 @@ contract SNSToken is ERC20, Ownable, ERC20Permit {
     event Burn(address indexed burner, uint256 amount);
 
     // Constructor to initialize the token with name, symbol, and initial owner
-    constructor(address owner) ERC20("Sonic Name Service", "SNS") Ownable(owner) ERC20Permit("Sonic Name Service") {}
+    constructor(
+        address initialOwner
+    ) ERC20("Sonic Name Service", "SNS") Ownable(initialOwner) ERC20Permit("Sonic Name Service") {}
 
     /*
     Function to mint new tokens, restricted to the owner only.
@@ -22,10 +24,10 @@ contract SNSToken is ERC20, Ownable, ERC20Permit {
     This ensures that no additional tokens can be minted once the burn-to-mint process is finalized, 
     providing trust in the token's supply cap.
     */
-    function mint(address to, uint256 amount) external onlyOwner {
-        require(to != address(0), "Mint to zero address!");
-        _mint(to, amount);
-        emit Mint(msg.sender, to, amount);
+    function mint(address recipient, uint256 amount) external onlyOwner {
+        require(recipient != address(0), "Mint to zero address!");
+        _mint(recipient, amount);
+        emit Mint(msg.sender, recipient, amount);
     }
 
     // Function to allow token holders to burn their own tokens
